@@ -1,81 +1,22 @@
-# --- Core ML & Scientific Stack (Fixed NumPy 1.x Wheels) ---
-numpy>=1.26.4,<2.0.0
-scipy>=1.11.4,<1.14.0
-scikit-learn>=1.3.2
-pandas>=2.1.0
-matplotlib>=3.8.0
-seaborn>=0.13.0
-joblib>=1.3.0
+--prefer-binary
+--only-binary :all:
 
-# --- TensorFlow & Keras Stack ---
-tensorflow>=2.15.0,<2.17.0
-keras>=3.0.0
-h5py
-absl-py
-astunparse
-flatbuffers
-gast
-google-pasta
-grpcio
-libclang
-ml_dtypes
-namex
-opt_einsum
-optree
-protobuf
-termcolor
-wrapt
-
-# --- Web Framework & Database (Flask & FastAPI) ---
+numpy==1.26.4
+scipy==1.13.1
+scikit-learn==1.4.2
+pandas==2.2.2
+tensorflow==2.16.1
+keras==3.3.3
 Flask==3.0.3
 gunicorn==22.0.0
 flask-cors
 Flask-Migrate
-Flask-Reuploaded
 Flask-SQLAlchemy
 SQLAlchemy
-alembic
-greenlet
-Mako
-itsdangerous
-Jinja2
-MarkupSafe
-Werkzeug
-
-# --- FastAPI / Uvicorn Stack ---
 fastapi
 uvicorn
-starlette
 pydantic
-pydantic-settings
-pydantic-extra-types
-python-multipart
-email-validator
-dnspython
-httpx
-httpcore
-h11
-annotated-types
-
-# --- AWS & Cloud Services ---
 boto3
-botocore
-s3transfer
-sentry-sdk
-
-# --- Utilities & Helpers ---
 pillow
 requests
-urllib3
 python-dotenv
-python-dateutil
-pytz
-PyYAML
-click
-rich
-typer
-packaging
-certifi
-charset-normalizer
-idna
-six
