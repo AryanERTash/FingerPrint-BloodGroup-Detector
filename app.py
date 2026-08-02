@@ -1,37 +1,22 @@
 import os
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, jsonify, render_template
 
-# Calculate root path relative to the api directory
-base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-
-app = Flask(
-    __name__,
-    template_folder=os.path.join(base_dir, 'templates'),
-    static_folder=os.path.join(base_dir, 'static')
-)
+app = Flask(__name__)
 
 @app.route('/')
 def home():
     return jsonify({
         "status": "success",
-        "message": "Hello from Flask on Vercel!"
+        "message": "Hello from Flask on Render!"
     })
 
 @app.route('/about')
 def about():
     return jsonify({
         "status": "success",
-        "message": "Flask API is running smoothly."
+        "message": "Flask API is running smoothly from the root directory."
     })
 
-# Catches all undefined routes and returns JSON response
-@app.errorhandler(404)
-def page_not_found(e):
-    return jsonify({
-        "status": "error",
-        "message": "Route not found"
-    }), 404
-
-# For local development only
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
