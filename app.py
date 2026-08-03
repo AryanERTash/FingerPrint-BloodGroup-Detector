@@ -1,15 +1,5 @@
 import os
 
-# Prevent TensorFlow from allocating GPU memory / searching for CUDA drivers
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
-
-import tensorflow as tf
-
-# Restrict TensorFlow to a single CPU thread to save RAM
-tf.config.threading.set_inter_op_parallelism_threads(1)
-tf.config.threading.set_intra_op_parallelism_threads(1)
-
 
 
 import io
@@ -43,8 +33,8 @@ ALLOWED_CONTENT_TYPES = {
 
 
 
-CLASS_LABELS = ['A+', 'A-', 'AB+', 'AB-', 'B+', 'B-', 'O+', 'O-']
 
+CLASS_LABELS = ['A+', 'A-', 'AB+', 'AB-', 'B+', 'B-', 'O+', 'O-']
 
 
 
@@ -93,22 +83,22 @@ templates = Jinja2Templates(directory="templates")
 
 
 
+from tensorflow.keras.applications.resnet50 import preprocess_input
+
 def preprocess_image(file_bytes: bytes) -> np.ndarray:
-	try:
-		img = Image.open(io.BytesIO(file_bytes)).convert("RGB")
-	except Exception:
-		raise HTTPException(
-			status_code=400, detail="Uploaded file is not a valid image."
-		)
+    try:
+        img = Image.open(io.BytesIO(file_bytes)).convert("RGB")
+    except Exception:
+        raise HTTPException(status_code=400, detail="Uploaded file is not a valid image.")
 
-
-	img = img.resize(IMG_TARGET_SIZE)
-	arr = np.array(img, dtype="float32")
-	arr = arr / 255.0 # to match training inputs
-	arr = np.expand_dims(arr, axis=0)
+    img = img.resize(IMG_TARGET_SIZE)
+    arr = np.array(img, dtype="float32")
 	
-	return arr
-
+    # Use ResNet50 specific preprocessing
+    arr = preprocess_input(arr)
+    arr = np.expand_dims(arr, axis=0)
+    
+    return arr
 
 
 @app.get("/", response_class=HTMLResponse)
