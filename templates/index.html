@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Aryan Kumar -->
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Dermatoglyphic Blood Inspection</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+
+	<link
+		href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=JetBrains+Mono:wght@400;500;600&display=swap"
+		rel="stylesheet" />
+	
+		<link rel="shortcut icon" href="{{url_for('static', path='images/logo.jpeg')}}" type="image/x-icon">
+	
+
+		<link rel="stylesheet" href="{{url_for('static', path='style.css')}}" />
+</head>
+
+<body>
+
+	<div class="eyebrow">Upload you sample</div>
+	<img src="{{url_for('static', path = 'images/logo.jpeg')}}" alt="Logo" width="100" height="100" style="margin: 20px;"/> 
+
+	<h1> Dermatoglyphic <em>blood group</em> classification</h1>
+	<p class="subhead">Upload a single thumbprint scan, 256&times;256 pixels or smaller. Use a fingerprint scanner to
+		capture the image. Our CNN model achives 87% accuracy and is not always Correct.</p>
+
+	<h2>
+		Sample images:
+		<a href="download/A-/cluster_1_1.BMP">A-</a>
+		<a href="download/A+/cluster_0_354.BMP">A+</a>
+		<a href="download/AB-/cluster_5_121.BMP">AB-</a>
+		<a href="download/AB+/cluster_4_76.BMP">AB+</a>
+		<a href="download/B-/cluster_3_151.BMP">B-</a>
+		<a href="download/B+/cluster_2_104.BMP">B+</a>
+		<a href="download/O-/cluster_7_75.BMP">O-</a>
+		<a href="download/O+/cluster_6_106.BMP">O+</a>
+
+	</h2>
+	<div class="stage">
+
+		<!-- Left: scanner / upload -->
+		<div class="panel">
+			<div id="scanner" class="scanner">
+				<div class="ridge-grid"></div>
+				<div class="scan-line" id="scan-line"></div>
+				<img id="preview" class="preview-img" alt="Uploaded thumbprint preview" />
+				<div class="scanner-placeholder" id="placeholder">
+					<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+						stroke-width="1.4">
+						<path d="M12 2a8 8 0 0 0-8 8c0 4 2 6 2 9" />
+						<path d="M12 6a5 5 0 0 0-5 5c0 3 1.2 5 1.2 7.5" />
+						<path d="M12 10a3 3 0 0 0-3 3c0 2.5 1 3.5 1 6" />
+						<path d="M12 2a8 8 0 0 1 8 8c0 2.5-.6 4-1.4 5.4" />
+						<path d="M12 6a5 5 0 0 1 5 5c0 1.6-.4 2.6-1 3.6" />
+					</svg>
+					<div class="cta">Drop a thumbprint image here<br />or <b>click to browse</b><br />PNG / JPG / BMP
+						&middot; max 256&times;256px</div>
+				</div>
+			</div>
+			<input type="file" id="file-input" accept="image/png, image/jpeg, image/jpg, image/bmp" />
+
+			<div class="file-meta">
+				<span class="name" id="file-name"></span>
+				<span id="file-dims"></span>
+			</div>
+
+			<div class="progress-wrap" id="progress-wrap">
+				<div class="progress-track">
+					<div class="progress-fill" id="progress-fill"></div>
+				</div>
+				<div class="progress-label">
+					<span class="status" id="progress-status">Uploading&hellip;</span>
+					<span id="progress-pct">0%</span>
+				</div>
+			</div>
+
+			<button class="btn" id="analyze-btn" disabled>Analyze sample</button>
+			<div class="error-box" id="error-box"></div>
+		</div>
+
+		
+		<div class="panel results-panel">
+			<div class="results-empty" id="results-empty">
+				<div class="idx">?</div>
+				<div>No sample analyzed yet.<br />Results will appear here once a scan is processed.</div>
+			</div>
+
+			<div class="result-header" id="result-header">
+				<div>
+					<div class="label">Predicted group</div>
+					<div class="call" id="result-call">--</div>
+				</div>
+				<div class="conf">
+					<div class="num" id="result-conf">--</div>
+					<div class="label">confidence</div>
+				</div>
+			</div>
+
+			<div class="type-grid" id="type-grid"></div>
+		</div>
+
+	</div>
+
+	<script src="{{ url_for('static', path='script.js') }}" defer></script>
+</body>
+
+</html>
