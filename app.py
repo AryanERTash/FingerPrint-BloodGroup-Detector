@@ -1,3 +1,17 @@
+import os
+
+# Prevent TensorFlow from allocating GPU memory / searching for CUDA drivers
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+
+import tensorflow as tf
+
+# Restrict TensorFlow to a single CPU thread to save RAM
+tf.config.threading.set_inter_op_parallelism_threads(1)
+tf.config.threading.set_intra_op_parallelism_threads(1)
+
+
+
 import io
 import os
 from contextlib import asynccontextmanager
