@@ -1,6 +1,6 @@
 FROM python:3.10-slim
 
-# Suppress TensorFlow stupidity
+# stop tensorflow from spamming the logs with warnings
 ENV TF_CPP_MIN_LOG_LEVEL="2"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -22,6 +22,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 5000
 
-CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:5000", "--timeout", "120", "--workers", "2"]
+EXPOSE $PORT
+
+
+CMD gunicorn app:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --timeout 120 --workers 2
