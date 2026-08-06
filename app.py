@@ -17,7 +17,7 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.models import load_model
 
 
-MODEL_PATH = os.path.join("model", "blood_group_detection1.keras")
+MODEL_PATH = os.path.join("model", "bg-fe-default.h5")
 IMG_TARGET_SIZE = (256, 256)
 MAX_UPLOAD_DIMENSIONS = (256, 256)
 MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024
